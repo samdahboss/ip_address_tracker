@@ -1,13 +1,16 @@
-import { useState,  useEffect, createContext } from 'react';
+import { useState,  useEffect, createContext, useContext } from 'react';
 import PropTypes from 'prop-types'
 
+
+import { UserIpContext } from './GetUserIpContext';
 // Create a new context
 export const LocationContext = createContext();
 
 // Create a component that will provide the context value
 export const LocationProvider = ({ children }) => {
+    const {userIp} =useContext(UserIpContext)
     const apiKey= 'b249b35396d3409e9affca514ba6eeaa';
-    const [ ip, setIp] = useState('192.212.174.101');
+    const [ ip, setIp] = useState(userIp);
     const [ location, setLocation ] = useState({})
 
     useEffect(() => {

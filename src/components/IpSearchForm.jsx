@@ -1,11 +1,15 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import arrowIcon from '../assets/icon-arrow.svg';
 import { LocationContext } from './LocationContext';
+import { UserIpContext } from './GetUserIpContext';
 
 export default function IpSearchForm() {
+  const { userIp } =useContext(UserIpContext)
   const { setIp } =  useContext(LocationContext)
-  const [search, setSearch] = useState('192.212.174.101')
+  const [search, setSearch] = useState(userIp)
   
+  useEffect(()=>{setSearch(userIp)},[userIp])
+
   const handleChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value)
