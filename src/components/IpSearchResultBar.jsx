@@ -1,9 +1,16 @@
+import { useContext } from "react"
+import { LocationContext } from "./LocationContext"
+
+
+
 export default function IpSearchResultBar() {
+  const { location } = useContext(LocationContext)
+
   const responseObj = {
-    'IP ADDRESS': '192.212.174.101',
-    'LOCATION': 'Brooklyn, NY 10001',
-    'TIMEZONE': 'UTC -05:00',
-    'ISP': 'SpaceX Starlink'
+    'IP ADDRESS': location.ip,
+    'LOCATION': `${location.location.country}, ${location.location.region}`,
+    'TIMEZONE': `UTC ${location.location.timezone}`,
+    'ISP': location.isp
     
   }
   return (
