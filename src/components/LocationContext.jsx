@@ -6,18 +6,13 @@ export const LocationContext = createContext();
 
 // Create a component that will provide the context value
 export const LocationProvider = ({ children }) => {
-    const apiKey= 'at_XL18ZdPTniQnJauw05irkSQxcMg96';
+    const apiKey= 'b249b35396d3409e9affca514ba6eeaa';
     const [ ip, setIp] = useState('192.212.174.101');
-    const [ location, setLocation ] = useState({
-                                                "ip":"192.212.174.101",
-                                                "location":{
-                                                    "country":"US",
-                                                    "region":"California",
-                                                    "timezone":"-07:00"},
-                                                "isp":""
-                                            })
+    const [ location, setLocation ] = useState({})
+
     useEffect(() => {
-        fetch(`https://geo.ipify.org/api/v2/country?apiKey=${apiKey}&ipAddress=${ip}`)
+        async function fetchLocation() {
+            await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}&ip=${ip}`)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -37,6 +32,8 @@ export const LocationProvider = ({ children }) => {
                     "isp": ""
                 });
             })
+        }
+        fetchLocation()
     },[ip]);
     return (
         <LocationContext.Provider value={{  ip, location, setIp }}>
