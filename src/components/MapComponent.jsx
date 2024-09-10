@@ -1,12 +1,12 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'; // Import necessary components from react-leaflet
-import 'leaflet/dist/leaflet.css'; // Import Leaflet's CSS
-import L from 'leaflet'; // Import Leaflet for icon customization
-import { useState, useEffect } from 'react'; // Import useState and useEffect hooks from React
-import PropTypes from 'prop-types'; // Import PropTypes for type checking
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet"; // Import necessary components from react-leaflet
+import "leaflet/dist/leaflet.css"; // Import Leaflet's CSS
+import L from "leaflet"; // Import Leaflet for icon customization
+import { useState, useEffect } from "react"; // Import useState and useEffect hooks from React
+import PropTypes from "prop-types"; // Import PropTypes for type checking
 
 // Fix for default icon (Leaflet markers sometimes don't show properly in React)
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 // Set default icon and shadow to fix marker display issue
 const DefaultIcon = L.icon({
@@ -30,7 +30,7 @@ function RecenterMap({ latitude, longitude }) {
 
 // Main component to display the map
 export default function MapComponent({ location }) {
-  const defaultCenter = [40.7128, -74.0060]; // Default to New York City coordinates
+  const defaultCenter = [40.7128, -74.006]; // Default to New York City coordinates
   const [latitude, setLatitude] = useState(defaultCenter[0]); // State to store latitude
   const [longitude, setLongitude] = useState(defaultCenter[1]); // State to store longitude
   const [loading, setLoading] = useState(true); // State to handle loading status
@@ -40,7 +40,8 @@ export default function MapComponent({ location }) {
     if (location) {
       const lat = parseFloat(location.latitude); // Parse latitude from location prop
       const lon = parseFloat(location.longitude); // Parse longitude from location prop
-      if (!isNaN(lat) && !isNaN(lon)) { // Check if parsed values are valid numbers
+      if (!isNaN(lat) && !isNaN(lon)) {
+        // Check if parsed values are valid numbers
         setLatitude(lat); // Update latitude state
         setLongitude(lon); // Update longitude state
         setLoading(false); // Set loading to false
@@ -53,11 +54,11 @@ export default function MapComponent({ location }) {
   }
 
   return (
-    <div className='w-full h-2/3 mb-0 bg-black'>
+    <div className="w-full h-2/3 mb-0 bg-black">
       <MapContainer
         center={[latitude, longitude]} // Initial center position of the map
-        zoom={10}                       // Initial zoom level of the map
-        className='h-full w-full'       // Height and width of the map
+        zoom={10} // Initial zoom level of the map
+        className="h-full w-full" // Height and width of the map
       >
         {/* TileLayer is the base layer of the map (OpenStreetMap used here) */}
         <TileLayer
@@ -71,7 +72,8 @@ export default function MapComponent({ location }) {
         {/* Marker placed at the updated latitude and longitude */}
         <Marker position={[latitude, longitude]}>
           <Popup>
-            Coordinates: {latitude}, {longitude} {/* Display coordinates in the popup */}
+            Coordinates: {latitude}, {longitude}{" "}
+            {/* Display coordinates in the popup */}
           </Popup>
         </Marker>
       </MapContainer>
